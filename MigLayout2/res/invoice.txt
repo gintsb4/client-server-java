@@ -1,0 +1,8 @@
+Joe Shocks
+Newline
+ Items purchased:
+
+
+Cost 	= 0.0
+Tax 	= 0.0
+Amount due: 0.0
