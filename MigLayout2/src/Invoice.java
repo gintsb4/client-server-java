@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 public class Invoice {
 	
@@ -6,6 +8,7 @@ public class Invoice {
 	private String items;
 	private double tax;
 	private float total;
+	private ArrayList<Item> item;
 	
 	public Invoice(String pname,String paddress,String ptax){
 		name = pname;
@@ -37,7 +40,7 @@ public class Invoice {
 	{
 		String returnString;
 		
-		returnString = name + "\n" + address + "\n Items purchased:\n";
+		returnString = name + "\n" + address + "\nItems purchased:\n";
 		returnString += items + "\n";
 		returnString += "\nCost \t= " + total + "\nTax \t= " + tax;
 		returnString += "\nAmount due: "+(total+((total/100)*tax));

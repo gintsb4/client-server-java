@@ -1,8 +1,8 @@
-Joe Shocks
-Newline
- Items purchased:
+Marti Roower
+Hulk Street
+Items purchased:
 
 
 Cost 	= 0.0
-Tax 	= 0.0
+Tax 	= 21.0
 Amount due: 0.0
