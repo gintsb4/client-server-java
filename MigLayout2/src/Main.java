@@ -1,9 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,9 +34,11 @@ public class Main {
 			  e.printStackTrace();
 		  }
 		//Database Frame
-		JFrame frame = new JFrame("Joe Bloggs Invoice");
+		JFrame frame = new JFrame("Gintsb4 Invoice");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(400,200);	
+
+		final Inventory inventory = new Inventory();
 		
 		//Database Panels
 		
@@ -41,7 +48,7 @@ public class Main {
 		JPanel panel4 = new JPanel();
 
 		//Keypad Frame
-		JFrame keypad = new JFrame("JB Stock");
+		JFrame keypad = new JFrame("Gintsb4 Stock");
 		keypad.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		keypad.setLocation(150,200);
 		
@@ -54,7 +61,7 @@ public class Main {
 		//Panel 1 Company Details
 		panel1.setLayout(new MigLayout("", "[]", "[][][][][][][][][]"));
 		panel1.setBorder(BorderFactory.createTitledBorder("Company"));
-		JTextArea stockArea = new JTextArea(12,20);
+		final JTextArea stockArea = new JTextArea(12,20);
 		JScrollPane scroll = new JScrollPane (stockArea, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		JLabel blankLabel = new JLabel("hi");
@@ -71,7 +78,7 @@ public class Main {
 		blankLabel5.setVisible(false);
 //		blankLabel6.setVisible(false);
 
-		panel1.add(new JLabel("Joe Bloggs Hardware"),"cell 0 0,alignx center");
+		panel1.add(new JLabel("Gintsb4 Hardware"),"cell 0 0,alignx center");
 		panel1.add(new JLabel("Shop Street,"),"cell 0 1,alignx center");
 		panel1.add(new JLabel("Galway"),"cell 0 2,alignx center");
 		panel1.add(new JLabel("091 - 123456"),"cell 0 3,alignx center");
@@ -88,14 +95,14 @@ public class Main {
 		JLabel addressLabel = new JLabel("Address:");
 		JLabel detailsLabel = new JLabel("Invoice:");
 		
-		JTextField firstname = new JTextField(10);
-		JTextField surname = new JTextField(10);
-		JTextField address = new JTextField(10);
-		JTextArea detailsArea = new JTextArea(200,200); //y x
+		final JTextField firstname = new JTextField(10);
+		final JTextField surname = new JTextField(10);
+		final JTextField address = new JTextField(10);
+		final JTextArea detailsArea = new JTextArea(200,200); //y x
 		
 
 		try {
-			FileReader reader = new FileReader( "invoice.txt" );
+			FileReader reader = new FileReader( "./res/invoice.txt" );
 			BufferedReader br = new BufferedReader(reader);
 			detailsArea.read(br, null);
 			detailsArea.requestFocus();
@@ -105,6 +112,15 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			inventory.parseXML(new File("./res/inventory.txt"));
+			stockArea.setText(inventory.generateList());
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -133,7 +149,7 @@ public class Main {
 		JLabel amountLabel = new JLabel("Amount: ");
 		JTextField amount = new JTextField(8);
 		JLabel taxLabel = new JLabel("Tax: ");
-		JComboBox tax = new JComboBox(taxRates);
+		final JComboBox tax = new JComboBox(taxRates);
 		JLabel priceLabel = new JLabel("Price: €");
 		JTextField price = new JTextField(8);
 		JButton submitBtn = new JButton("Submit");
@@ -173,13 +189,13 @@ public class Main {
 		
 		panel5.setLayout(new MigLayout("","40[]40[]"));
 		panel5.setBorder(BorderFactory.createTitledBorder("Add/Remove Item"));
-		JComboBox addRemoveCombo = new JComboBox(addRemove);
+		final JComboBox addRemoveCombo = new JComboBox(addRemove);
 		JLabel itemNameLabel = new JLabel("Name:");
-		JTextField itemName = new JTextField(8);
+		final JTextField itemName = new JTextField(8);
 		JLabel itemPriceLabel = new JLabel("Price:");
-		JTextField itemPrice = new JTextField(8);
+		final JTextField itemPrice = new JTextField(8);
 		JLabel stockAmountLabel = new JLabel("Amount:");
-		JTextField stockAmount = new JTextField(8);
+		final JTextField stockAmount = new JTextField(8);
 		JButton addItemBtn = new JButton("Submit");
 		
 		
@@ -251,6 +267,55 @@ public class Main {
 		//keypad.pack();
 		keypad.setVisible(true);
 		
+		submitBtn.addActionListener(new ActionListener(){
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(tax.toString());
+				Invoice invoice = new Invoice(firstname.getText()+ " " + surname.getText(),
+											  address.getText(),tax.toString());
+				detailsArea.setText(invoice.returnInvoice());
+				try{
+					FileWriter out = new FileWriter("./res/invoice.txt");
+					PrintWriter print = new PrintWriter(out);
+					
+					print.print(invoice.returnInvoice());
+					print.flush();
+				}
+				catch(Exception ee)
+				{
+					ee.printStackTrace();
+				}
+				
+			}	
+			
+	});		addItemBtn.addActionListener(new ActionListener(){
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			try{
+			if(addRemoveCombo.toString().contains("Add Item"))
+			{
+				inventory.addItem(itemName.getText(), Integer.parseInt(stockAmount.getText()),
+								(float)Double.parseDouble(itemPrice.getText()));
+			}
+			if(addRemoveCombo.toString().contains("Remove Item"))
+			{
+				inventory.removeItem(itemName.getText(), Integer.parseInt((stockAmount.getText())));
+			}
+			System.out.println("submit item" + itemName.getText() +stockAmount.getText() + itemPrice.getText());
+			
+			stockArea.setText(inventory.generateList());
+			}catch(Exception e)
+			{
+				System.out.println("submit item" + itemName.getText() +stockAmount.getText() + itemPrice.getText());
+				
+				e.printStackTrace();
+			}
+		}	
+		
+});
 	}
 
 }
