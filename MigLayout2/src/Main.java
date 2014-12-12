@@ -26,7 +26,7 @@ import javax.swing.UIManager;
 import net.miginfocom.swing.MigLayout;
 
 public class Main {
-
+	private static String business = "Gintsb4 Hardware\nShop Street\n091 - 123456\n\n";
 	public static void main(String[] args) {
 		
 		
@@ -102,8 +102,10 @@ public class Main {
 		final JTextField address = new JTextField(10);
 		final JTextArea detailsArea = new JTextArea(200,200); //y x
 		
-
+		detailsArea.setText(business);
+/*
 		try {
+			
 			FileReader reader = new FileReader( "./res/invoice.txt" );
 			BufferedReader br = new BufferedReader(reader);
 			detailsArea.read(br, null);
@@ -117,7 +119,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	*/	
 		try {
 			inventory.parseXML(new File("./res/inventory.txt"));
 			stockArea.setText(inventory.generateList());
@@ -149,11 +151,11 @@ public class Main {
 		JLabel itemLabel = new JLabel("Item: ");
 		final JTextField item = new JTextField(8);
 		JLabel amountLabel = new JLabel("Amount: ");
-		JTextField amount = new JTextField(8);
+		final JTextField amount = new JTextField(8);
 		JLabel taxLabel = new JLabel("Tax: ");
 		final JComboBox<?> tax = new JComboBox<Object>(taxRates);
 		JLabel priceLabel = new JLabel("Price: €");
-		JTextField price = new JTextField(8);
+		final JTextField price = new JTextField(8);
 		JButton submitBtn = new JButton("Submit");
 		JButton printBtn = new JButton("Print");
 		JButton clearBtn = new JButton("Clear");
@@ -248,22 +250,22 @@ public class Main {
 			
 		});
 		
-		submitBtn.addActionListener(new ActionListener(){
+			submitBtn.addActionListener(new ActionListener(){
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println(tax.toString());
 				Invoice invoice = new Invoice(firstname.getText()+ " " + surname.getText(),
 											  address.getText(),tax.toString());
-				detailsArea.setText(invoice.returnInvoice());
-				detailsArea.append("\n" + item.getText());
+				invoice.updateInvoice(item.getText(), price.getText(), amount.getText());
+				detailsArea.append(invoice.returnInvoice());
+				//detailsArea.append("\n" + amount.getText() + "\t" + item.getText() + "\t" + price.getText());
 				try{
 					FileWriter out = new FileWriter("./res/invoice.txt");
 					PrintWriter print = new PrintWriter(out);
 					
-					print.print(invoice.returnInvoice());
+					print.print(detailsArea.getText());
 					print.flush();
-					print.close();
 				}
 				catch(Exception ee)
 				{
@@ -272,7 +274,7 @@ public class Main {
 				
 			}	
 			
-	});		addItemBtn.addActionListener(new ActionListener(){
+	});	addItemBtn.addActionListener(new ActionListener(){
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
