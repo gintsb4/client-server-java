@@ -67,9 +67,9 @@ public class Inventory {
 				String[] elements = line.split("\t");
 				if(elements.length == 3){
 						
-					System.out.println(elements[1] + " " + elements[2]+ " " + elements.length );
-					int amount = Integer.parseInt(elements[1]);
-					double cost = Double.parseDouble(elements[2]);
+					System.out.println(elements[1] + "\t" + elements[2]+ "\t" + elements.length );
+					int amount = Integer.parseInt(elements[2]);
+					double cost = Double.parseDouble(elements[1]);
 					
 					items.add(new Item(elements[0],amount,(float)cost));
 				}

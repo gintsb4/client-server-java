@@ -151,7 +151,7 @@ public class Main {
 		JLabel amountLabel = new JLabel("Amount: ");
 		JTextField amount = new JTextField(8);
 		JLabel taxLabel = new JLabel("Tax: ");
-		final JComboBox tax = new JComboBox(taxRates);
+		final JComboBox<?> tax = new JComboBox<Object>(taxRates);
 		JLabel priceLabel = new JLabel("Price: €");
 		JTextField price = new JTextField(8);
 		JButton submitBtn = new JButton("Submit");
@@ -199,7 +199,7 @@ public class Main {
 		
 		panel5.setLayout(new MigLayout("","40[]40[]"));
 		panel5.setBorder(BorderFactory.createTitledBorder("Add/Remove Item"));
-		final JComboBox addRemoveCombo = new JComboBox(addRemove);
+		final JComboBox<?> addRemoveCombo = new JComboBox<Object>(addRemove);
 		JLabel itemNameLabel = new JLabel("Name:");
 		final JTextField itemName = new JTextField(8);
 		JLabel itemPriceLabel = new JLabel("Price:");
@@ -263,6 +263,7 @@ public class Main {
 					
 					print.print(invoice.returnInvoice());
 					print.flush();
+					print.close();
 				}
 				catch(Exception ee)
 				{
@@ -292,6 +293,7 @@ public class Main {
 			
 			print.print(inventory.generateList());
 			print.flush();
+			print.close();
 			stockArea.setText(inventory.generateList());
 			}catch(Exception e)
 			{
