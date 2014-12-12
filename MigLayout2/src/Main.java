@@ -287,7 +287,11 @@ public class Main {
 				inventory.removeItem(itemName.getText(), Integer.parseInt((stockAmount.getText())));
 			}
 			System.out.println("submit item" + itemName.getText() +stockAmount.getText() + itemPrice.getText());
+			FileWriter out = new FileWriter("./res/inventory.txt");
+			PrintWriter print = new PrintWriter(out);
 			
+			print.print(inventory.generateList());
+			print.flush();
 			stockArea.setText(inventory.generateList());
 			}catch(Exception e)
 			{

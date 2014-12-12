@@ -50,7 +50,7 @@ public class Item {
 	
 	public String inventory()
 	{
-		return name + ": E" + cost + " \tX" + quantity + "\n"; 
+		return name + "\t" + cost + " \t" + quantity + "\n"; 
 	}
 	
 	public String values()
