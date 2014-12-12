@@ -41,9 +41,11 @@ public class Invoice {
 		String returnString;
 		
 		returnString = name + "\n" + address + "\nItems purchased:\n";
+		/*
 		returnString += items + "\n";
 		returnString += "\nCost \t= " + total + "\nTax \t= " + tax;
 		returnString += "\nAmount due: "+(total+((total/100)*tax));
+		*/
 				
 		return returnString;
 	}

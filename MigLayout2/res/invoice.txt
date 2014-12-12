@@ -1,8 +1,3 @@
-Marti Roower
-Hulk Street
+hio;h iohih
+oi;h
 Items purchased:
-
-
-Cost 	= 0.0
-Tax 	= 21.0
-Amount due: 0.0

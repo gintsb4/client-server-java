@@ -147,7 +147,7 @@ public class Main {
 		panel3.setLayout(new MigLayout(""));
 		panel3.setBorder(BorderFactory.createTitledBorder("Purchases"));
 		JLabel itemLabel = new JLabel("Item: ");
-		JTextField item = new JTextField(8);
+		final JTextField item = new JTextField(8);
 		JLabel amountLabel = new JLabel("Amount: ");
 		JTextField amount = new JTextField(8);
 		JLabel taxLabel = new JLabel("Tax: ");
@@ -220,46 +220,6 @@ public class Main {
 		panel5.add(addItemBtn,"center");
 		
 		
-		//Keypad Panel
-		//panel5.setLayout(new MigLayout());
-		/*
-		panel5.setBorder(BorderFactory.createTitledBorder("Keypad"));
-		JTextField keypadDisplay = new JTextField(10);
-		JLabel enableLabel = new JLabel("Enable Keypad");
-		JRadioButton enable = new JRadioButton();
-		JButton btn1 = new JButton("1");
-		JButton btn2 = new JButton("2");
-		JButton btn3 = new JButton("3");
-		JButton btn4 = new JButton("4");
-		JButton btn5 = new JButton("5");
-		JButton btn6 = new JButton("6");
-		JButton btn7 = new JButton("7");
-		JButton btn8 = new JButton("8");
-		JButton btn9 = new JButton("9");
-		JButton btn0 = new JButton("0");
-		JButton btnAdd = new JButton("+");
-		JButton btnEnter = new JButton("Enter");
-		
-		panel5.add(keypadDisplay,"pushx, growx, wrap");
-		panel5.add(enableLabel,"left, split");
-		panel5.add(enable,"wrap");
-		panel5.add(btn1,"left, split");
-		panel5.add(btn2);
-		panel5.add(btn3,"wrap");
-		panel5.add(btn4,"left, split");
-		panel5.add(btn5);
-		panel5.add(btn6,"wrap");
-		panel5.add(btn7,"left, split");
-		panel5.add(btn8);
-		panel5.add(btn9,"wrap");
-	
-		panel5.add(btnAdd,"split");
-		panel5.add(btn0);
-		panel5.add(btnEnter,"wrap");
-		*/
-		
-		
-		
 		
 		/*********************************************/
 		
@@ -277,6 +237,17 @@ public class Main {
 		//keypad.pack();
 		keypad.setVisible(true);
 		
+		
+		clearBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				detailsArea.setText("");
+				
+			}
+			
+		});
+		
 		submitBtn.addActionListener(new ActionListener(){
 			
 			@Override
@@ -285,6 +256,7 @@ public class Main {
 				Invoice invoice = new Invoice(firstname.getText()+ " " + surname.getText(),
 											  address.getText(),tax.toString());
 				detailsArea.setText(invoice.returnInvoice());
+				detailsArea.append("\n" + item.getText());
 				try{
 					FileWriter out = new FileWriter("./res/invoice.txt");
 					PrintWriter print = new PrintWriter(out);
