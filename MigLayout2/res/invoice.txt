@@ -1,3 +1,25 @@
-hio;h iohih
-oi;h
+Gintsb4 Hardware
+Shop Street
+091 - 123456
+
+
+
+Gints Peterson
+Galway
 Items purchased:
+
+Item: Cat
+Amount: 2
+Cost = 39,98
+Tax = 23.0
+Amount due: 49,18
+
+Gints Peterson
+Galway
+Items purchased:
+
+Item: Cat
+Amount: 2
+Cost = 39,98
+Tax = 23.0
+Amount due: 49,18
