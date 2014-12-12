@@ -9,6 +9,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -158,6 +160,12 @@ public class Main {
 		JLabel totalLabel = new JLabel("Total: €");
 		JTextField total = new JTextField(8);
 		
+		//Date Label
+		SimpleDateFormat dateFormat = new SimpleDateFormat("EE dd/MM/yyyy");
+		Date d = new Date();
+		JLabel date = new JLabel("Date: " + dateFormat.format(d).toString());
+		
+		
 		
 		panel3.add(itemLabel,"left, sg 1, split");
 		panel3.add(item,"wrap");
@@ -182,7 +190,9 @@ public class Main {
 		panel4.setBorder(BorderFactory.createEtchedBorder());
 		panel4.setBackground(Color.WHITE);
 		panel4.add(new MainClock());
-		panel3.add(panel4);
+		panel3.add(panel4,"wrap");
+		panel3.add(date);
+		
 		//Panel 4 Add Item
 		
 		String[] addRemove = {"Add Item", "Remove Item"};
