@@ -103,23 +103,7 @@ public class Main {
 		final JTextArea detailsArea = new JTextArea(200,200); //y x
 		
 		detailsArea.setText(business);
-/*
-		try {
-			
-			FileReader reader = new FileReader( "./res/invoice.txt" );
-			BufferedReader br = new BufferedReader(reader);
-			detailsArea.read(br, null);
-			detailsArea.requestFocus();
-			
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	*/	
+
 		try {
 			inventory.parseXML(new File("./res/inventory.txt"));
 			stockArea.setText(inventory.generateList());
@@ -160,7 +144,7 @@ public class Main {
 		JButton printBtn = new JButton("Print");
 		JButton clearBtn = new JButton("Clear");
 		JLabel totalLabel = new JLabel("Total: €");
-		JTextField total = new JTextField(8);
+		final JTextField total = new JTextField(8);
 		
 		//Date Label
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EE dd/MM/yyyy");
@@ -261,7 +245,10 @@ public class Main {
 				inventory.removeItem(item.getText(), Integer.parseInt(amount.getText()));
 				updateInventory(inventory, stockArea);
 				detailsArea.append(invoice.returnInvoice());
-				//detailsArea.append("\n" + amount.getText() + "\t" + item.getText() + "\t" + price.getText());
+				item.setText("");
+				amount.setText("");
+				price.setText("");
+				total.setText("");
 				try{
 					FileWriter out = new FileWriter("./res/invoice.txt");
 					PrintWriter print = new PrintWriter(out);

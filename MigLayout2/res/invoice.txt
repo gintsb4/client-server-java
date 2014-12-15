@@ -8,8 +8,8 @@ Shop Street
 
 Items purchased:
 
-Item: Chick
-Amount: 25
-Cost = 249,75
+Item: Cat
+Amount: 1
+Cost = 19.99
 Tax = 23.0
-Amount due: 307,19
+Amount due: 24.59
