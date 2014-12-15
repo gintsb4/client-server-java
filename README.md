@@ -8,7 +8,7 @@ Group Project 2014 (Using Github )
 
 ## Team
 * Team of 3 people
-Gints(gintsb4), Stephen(StephenMcloughlin) and David(haku2510)
+Gints(gintsb4, Team Leader), Stephen(StephenMcloughlin) and David(haku2510)
 
 ## Repository
 * Github account
