@@ -258,6 +258,8 @@ public class Main {
 				Invoice invoice = new Invoice(firstname.getText()+ " " + surname.getText(),
 											  address.getText(),tax.toString());
 				invoice.updateInvoice(item.getText(), price.getText(), amount.getText());
+				inventory.removeItem(item.getText(), Integer.parseInt(amount.getText()));
+				updateInventory(inventory, stockArea);
 				detailsArea.append(invoice.returnInvoice());
 				//detailsArea.append("\n" + amount.getText() + "\t" + item.getText() + "\t" + price.getText());
 				try{
@@ -290,13 +292,7 @@ public class Main {
 				inventory.removeItem(itemName.getText(), Integer.parseInt((stockAmount.getText())));
 			}
 			System.out.println("submit item" + itemName.getText() +stockAmount.getText() + itemPrice.getText());
-			FileWriter out = new FileWriter("./res/inventory.txt");
-			PrintWriter print = new PrintWriter(out);
-			
-			print.print(inventory.generateList());
-			print.flush();
-			print.close();
-			stockArea.setText(inventory.generateList());
+			updateInventory(inventory, stockArea);
 			}catch(Exception e)
 			{
 				System.out.println("submit item" + itemName.getText() +stockAmount.getText() + itemPrice.getText());
@@ -306,6 +302,23 @@ public class Main {
 		}	
 		
 });
+	}
+	protected static void updateInventory(Inventory inventory, JTextArea stockArea) {
+		// TODO Auto-generated method stub
+		FileWriter out = null;
+		try {
+			out = new FileWriter("./res/inventory.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PrintWriter print = new PrintWriter(out);
+		
+		print.print(inventory.generateList());
+		print.flush();
+		print.close();
+		stockArea.setText(inventory.generateList());
+		
 	}
 
 }

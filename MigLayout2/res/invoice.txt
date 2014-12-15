@@ -4,22 +4,12 @@ Shop Street
 
 
 
-Gints Peterson
-Galway
+ 
+
 Items purchased:
 
-Item: Cat
-Amount: 2
-Cost = 39,98
+Item: Chick
+Amount: 25
+Cost = 249,75
 Tax = 23.0
-Amount due: 49,18
-
-Gints Peterson
-Galway
-Items purchased:
-
-Item: Cat
-Amount: 2
-Cost = 39,98
-Tax = 23.0
-Amount due: 49,18
+Amount due: 307,19
